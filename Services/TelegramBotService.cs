@@ -59,14 +59,15 @@ public class TelegramBotService
 
                     if (approved)
                     {
-                        var from = permission.FromAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm");
-                        var until = permission.UntillAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm");
+                        var tz = TimeZoneInfo.FindSystemTimeZoneById("Asia/Tashkent");
+                        var permissionFrom = TimeZoneInfo.ConvertTime(permission.FromAt, tz);
+                        var permissionUntil = TimeZoneInfo.ConvertTime(permission.UntillAt, tz);
 
                         var htmlMessage =
                             $"✅ <b>YANGI TASDIQLANGAN RUXSAT</b>\n" +
                             $"👤 <b>Xodim:</b> {permission.FullName}\n" +
                             $"📝 <b>Sabab:</b> {permission.Description}\n" +
-                            $"🕒 <b>Vaqt:</b> {from} - {until}";
+                            $"🕒 <b>Vaqt:</b> {permissionFrom} - {permissionUntil}";
 
                         await bot.SendTextMessageAsync(
                             chatId: _groupChatId,
@@ -94,8 +95,10 @@ public class TelegramBotService
             InlineKeyboardButton.WithCallbackData("✅ Tasdiqlash", $"approve:{permission.Id}"),
             InlineKeyboardButton.WithCallbackData("❌ Bekor Qilish", $"reject:{permission.Id}")
         });
-
-        var text = $"YANGI RUXSAT\nXodim: {permission.FullName}\nSabab: {permission.Description}\n {permission.FromAt} dan {permission.UntillAt} gacha";
+        var tz = TimeZoneInfo.FindSystemTimeZoneById("Asia/Tashkent");
+        var permissionFrom = TimeZoneInfo.ConvertTime(permission.FromAt, tz);
+        var permissionUntil = TimeZoneInfo.ConvertTime(permission.UntillAt, tz);
+        var text = $"YANGI RUXSAT\nXodim: {permission.FullName}\nSabab: {permission.Description}\n {permissionFrom} dan {permissionUntil} gacha";
         await _botClient.SendTextMessageAsync(chatId, text, replyMarkup: buttons);
     }
 }
