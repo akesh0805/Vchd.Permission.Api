@@ -96,24 +96,6 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-async Task InitializeRoles(IServiceProvider serviceProvider)
-{
-    using var scope = serviceProvider.CreateScope();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    string[] roles = { "kadr", "user" };
-
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-}
-
-await InitializeRoles(app.Services);
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -122,12 +104,24 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<AppDbContext>();
         context.Database.Migrate();
+
+        // После применения миграций создаём роли
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        string[] roles = { "kadr", "user" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
     }
     catch (Exception ex)
     {
-        // Optionally log the error
-        Console.WriteLine("migratsiya qoshilmoqda: " + ex.Message);
+        Console.WriteLine("Ошибка при миграции или создании ролей: " + ex.Message);
     }
 }
+
 
 app.Run();
