@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Vchd.Permission.Api.props" />
+</Project>

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "v2QUrY/HAJzFfwtthO8e2r1hgUXlevK/IOpQYQOHkBk=",
+  "Source": "Vchd.Permission.Api",
+  "BasePath": "_content/Vchd.Permission.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
