@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vchd.Permission.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ddfa3f9b24ffbe99c9d92713d5138bf8a136ae3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50f6c5d8167aaddd8db66de388f1a73855616116")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vchd.Permission.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vchd.Permission.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
