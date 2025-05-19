@@ -83,11 +83,9 @@ builder.Services.AddAuthorizationBuilder()
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowVercelClient", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("https://vchd-permission-client.vercel.app")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 });
 
@@ -100,7 +98,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("AllowVercelClient");
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
